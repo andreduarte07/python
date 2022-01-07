@@ -2,26 +2,26 @@ from datetime import date
 data_atual = date.today()
 data_em_texto = "0{}/0{}/{}".format(data_atual.day, data_atual.month,data_atual.year)
 
-listaNomes      = ['aaa','bbb','ccc']
-listaIdades     = [11,22,33]
-listaNascimento = ['11/11/11','22/22/22','33/33/33']
+listaNomes      = ['Andre','Joao','Luccas']
+listaIdades     = [23,21,25]
+listaNascimento = ['23/11/1998','05/07/2000','18/01/1996']
 listaMesMenor = ['04', '06', '09', '11']
 
 def menu():
-    m = '''
-        0-  Finalizar
-        1-  Cadastrar dados nas listas
-        2-  Listar somente os nomes
-        3-  Listar os dados completos das pessoas
-        4-  Localizar o nome de alguém e mostrar todos seus dados
-        5-  Alterar a idade ou a data de nascimento
-        6-  Excluir alguém do cadastro
-        Escolha: '''
+    m = ''' \n
+            0-  Finalizar
+            1-  Cadastrar dados nas listas
+            2-  Listar somente os nomes
+            3-  Listar os dados completos das pessoas
+            4-  Localizar o nome de alguém e mostrar todos seus dados
+            5-  Alterar a idade ou a data de nascimento
+            6-  Excluir alguém do cadastro
+            Escolha: '''
     return input(m)
 
 def verificarIdade(idade):
     try:
-        if int(idade) > 0:
+        if int(idade) > 0 and int(idade) < 115:
             return idade
         else:
             print("Digite uma maior que zero")
@@ -32,7 +32,6 @@ def verificarIdade(idade):
 
 def verificarDataNasc(data):
     try:
-
         if data[2:3] == '/' and data[5:6] == '/':
             if int(data[:2]) > 00 and int(data[:2]) <= 31:
                 if int(data[3:5]) > 00 and int(data[3:5]) < 12:
@@ -65,13 +64,15 @@ def listarDados():
         printar(i)
 
 def localizarDados():
-    nome = input("Digite o nome que deseja buscar: ")
-    if nome in listaNomes:
-        i = listaNomes.index(nome)
-        printar(i)
-    else:
-        print("Nome não encontrado")
-
+    while True:
+        nome = input("Digite o nome que deseja buscar ou 0 para sair: ")
+        if nome in listaNomes:
+            i = listaNomes.index(nome)
+            printar(i)
+        elif nome == '0':
+            break
+        print("Nome não encontrado")    
+        
 def attDado():
     nome = input("Digite o nome de quem deseja alterar: ")
     if nome in listaNomes:
@@ -106,7 +107,10 @@ def excluir():
 
 #Funçao para printar dados completos
 def printar(i):
-    print(f"Nome: {listaNomes[i]}, Idade: {listaIdades[i]}, Data de nascimento: {listaNascimento[i]}", end="")
+    print(f"Nome: {listaNomes[i]}, Idade: {listaIdades[i]}, Data de nascimento: {listaNascimento[i]}\n", end="")
+
+
+#PROGRAMA PRINCIPAL
 
 while True:
     escolha = menu() 
