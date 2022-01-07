@@ -32,16 +32,18 @@ def verificarIdade(idade):
 
 def verificarDataNasc(data):
     try:
-        if int(data[:2]) > 00 and int(data[:2]) <= 31:
-            if int(data[3:5]) > 00 and int(data[3:5]) < 12:
-                if data[3:5] in listaMesMenor and int(data[:2]) <= 30:
-                    pass
-                elif data[3:5] == '02' and int(data[:2]) <= 28:
-                    pass
-                elif data[3:5] not in listaMesMenor:
-                    pass
-        if data[6:] <= data_em_texto[6:]:
-            listaNascimento.append(data)
+
+        if data[2:3] == '/' and data[5:6] == '/':
+            if int(data[:2]) > 00 and int(data[:2]) <= 31:
+                if int(data[3:5]) > 00 and int(data[3:5]) < 12:
+                    if data[3:5] in listaMesMenor and int(data[:2]) <= 30:
+                        pass
+                    elif data[3:5] == '02' and int(data[:2]) <= 28:
+                        pass
+                    elif data[3:5] not in listaMesMenor:
+                        pass
+            if data[6:] <= data_em_texto[6:]:
+                listaNascimento.append(data)
         else:
             print("Digite uma data valida")
             verificarDataNasc(input("Digite a data de nascimento no formato dd/mm/aaaa: : "))
@@ -54,9 +56,71 @@ def cadastro():
     listaIdades.append(verificarIdade(input("Digite a idade: ")))
     listaNascimento.append(verificarDataNasc(input("Digite a data de nascimento no formato dd/mm/aaaa: : ")))
 
+def listarNomes():
+    for nome in range(len(listaNomes)):     
+        print("Nome: %s"%listaNomes[nome])
+
+def listarDados():
+    for i in range(len(listaNomes)):     
+        printar(i)
+
+def localizarDados():
+    nome = input("Digite o nome que deseja buscar: ")
+    if nome in listaNomes:
+        i = listaNomes.index(nome)
+        printar(i)
+    else:
+        print("Nome não encontrado")
+
+def attDado():
+    nome = input("Digite o nome de quem deseja alterar: ")
+    if nome in listaNomes:
+        i = listaNomes.index(nome)
+        while True:   
+            n = input("Digite 1 para alterar a idade ou 2 para data de nascimento ou 0 para sair: ")
+            if n == '1':
+                novaIdade = verificarIdade(input("Digite a nova idade: "))
+                listaIdades[i] = novaIdade
+                break
+            elif n == '2':
+                novaData = verificarDataNasc(input("Digite a data de nascimento no formato dd/mm/aaaa: : "))
+                listaNascimento[i] = novaData
+                break
+            elif n == '0':
+                break
+            else:
+                print("Digite 1 para alterar a idade ou 2 para data de nascimento ou 0 para sair: ")
+
+def excluir():
+    nome = input("Digite o nome de quem deseja excluir: ")
+    if nome in listaNomes:
+        
+        i = listaNomes.index(nome)
+        printar(i),
+        print("\n     ---------Excluido com sucesso---------\n")
+        listaNomes.pop(i)
+        listaIdades.pop(i)
+        listaNascimento.pop(i)    
+    else:
+        print("Nome nao localizado")
+
+#Funçao para printar dados completos
+def printar(i):
+    print(f"Nome: {listaNomes[i]}, Idade: {listaIdades[i]}, Data de nascimento: {listaNascimento[i]}", end="")
+
 while True:
     escolha = menu() 
     if escolha == '0':
         break
     elif escolha == '1':
         cadastro()
+    elif escolha == '2':
+        listarNomes()
+    elif escolha == '3':
+        listarDados()
+    elif escolha == '4':
+        localizarDados()
+    elif escolha == '5':
+        attDado()
+    elif escolha == '6':
+        excluir()
